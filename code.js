@@ -35,22 +35,22 @@ const opcoes = [
         '15cm',
         '30cm'
     ]],
-    ['Queijo',[
+    ['Queijo', [
         'Cheddar',
         'Suiço',
         'Mussarela Ralada'
     ]],
-    ['Adicional',[
+    ['Adicional', [
         'Nenhum',
-		'Bacon',
-		'Tomate Seco',
-		'Cream Cheese'
+        'Bacon',
+        'Tomate Seco',
+        'Cream Cheese'
     ]],
-    ['Tostado',[
+    ['Tostado', [
         'Sim',
         'Não'
     ]],
-    ['Vegetais',[
+    ['Vegetais', [
         'Azeitonas',
         'Picles',
         'Pepino',
@@ -62,7 +62,7 @@ const opcoes = [
         'Cenoura Ralada',
         'Vinagrete'
     ]],
-    ['Molho',[
+    ['Molho', [
         'Cebola Agridoce',
         'Chipotle(picante)',
         'Barbecue',
@@ -72,24 +72,24 @@ const opcoes = [
         'Supreme'
     ]],
     ['Tempero',
-    [
-        'Sal',
-        'Vinagre',
-        'Azeite de Oliva',
-        'Pimenta Calabresa',
-        'Pimenta do Reino'
-    ]]
+        [
+            'Sal',
+            'Vinagre',
+            'Azeite de Oliva',
+            'Pimenta Calabresa',
+            'Pimenta do Reino'
+        ]]
 ]
 
 //extrai os campos do array onde estão os nomes das categorias, que ficam do lado esquerdo na tabela
 function criaNomes() {
-    return opcoes.map((a) => a[0]) 
+    return opcoes.map((a) => a[0])
 }
 
 //Seleciona aleatóriamente um item de cada elemento do array
 function selecionaSabores() {
-    random = 0; //aqui eu coloco a função que gera numeros aleatórios de 0 até tamanho do array opcoes hihihi
-    return opcoes.map(function(a) {
+    return opcoes.map(function (a) {
+        random = Math.floor(Math.random() * (a[1].length - 1 - 0) + 0);
         return a[1][random]
     })
 }
@@ -100,7 +100,7 @@ function populaTabela() {
     table.innerHTML = "";
     const nomes = criaNomes();
     const sabores = selecionaSabores();
-    for(let i = 0; i < opcoes.length; i++){
+    for (let i = 0; i < opcoes.length; i++) {
         let nomeNode = document.createTextNode(nomes[i])
         let saboresNode = document.createTextNode(sabores[i])
         let row = table.insertRow()
@@ -109,18 +109,61 @@ function populaTabela() {
         cell = row.insertCell()
         cell.appendChild(saboresNode)
     }
+    setImg();
 }
 
 function setImg() {
     let nomeRecheio = document.querySelector('table tr:nth-child(1) td:nth-child(2)');
     nomeRecheio = nomeRecheio.textContent
-    imgHref = 'sandubas/'
-
-    switch (nomeRecheio) {
-        case 'Atum':
-            imgHref+="0.jpg";
-            break;
+    function chooseName() {
+        switch (nomeRecheio) {
+            case 'Atum':
+                return "sandubas/1.jpg"
+                break;
+            case 'Beef Bacon Chipotle':
+                return "sandubas/2.jpg"
+                break
+            case 'Beef Barbecue Bacon':
+                return "sandubas/3.jpg"
+                break
+            case 'Carne Supreme':
+                return "sandubas/4.jpg"
+                break
+            case 'B.M.T Italiano':
+                return "sandubas/5.jpg"
+                break
+            case 'Frango':
+                return "sandubas/6.jpg"
+                break;
+            case 'Frango Defumado com Cream Cheese':
+                return "sandubas/7.jpg"
+                break;
+            case 'Frango Empanado':
+                return "sandubas/8.jpg"
+                break;
+            case 'Frango Pesto Cream Cheese':
+                return "sandubas/9.jpg"
+                break;
+            case 'Frango Ranch':
+                return "sandubas/10.jpg"
+                break;
+            case 'Franjo Teriyaki':
+                return "sandubas/11.jpg"
+                break;
+            case 'Steak Cheddar Cremoso':
+                return "sandubas/12.jpg"
+                break;
+            case 'Steak Churrasco':
+                return "sandubas/13.jpg"
+                break;
+            case 'Vegetariano':
+                return "sandubas/14.jpg"
+                break;
+        }
     }
-
+    img.innerHTML = "";
+    let tagImage = document.createElement('img');
+    tagImage.setAttribute('src', chooseName());
+    img.appendChild(tagImage);
     //criar a imagem, colocar dentro da div e setar o href...
 }
