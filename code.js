@@ -165,5 +165,8 @@ function setImg() {
     let tagImage = document.createElement('img');
     tagImage.setAttribute('src', chooseName());
     img.appendChild(tagImage);
-    //criar a imagem, colocar dentro da div e setar o href...
+}
+
+window.onload = function () { 
+    populaTabela()
 }
