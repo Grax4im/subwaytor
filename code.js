@@ -2,9 +2,11 @@ const table = document.querySelector('table')
 const button = document.querySelector('button')
 const img = document.querySelector('.imagem')
 let imgHref = null;
+
 button.onclick = function () {
     populaTabela();
 }
+
 //array com todas as opcoes
 const opcoes = [
     ['Recheio', [
@@ -81,12 +83,12 @@ const opcoes = [
         ]]
 ]
 
-//extrai os campos do array onde estão os nomes das categorias, que ficam do lado esquerdo na tabela
+//lado esquerdo da tabela
 function criaNomes() {
     return opcoes.map((a) => a[0])
 }
 
-//Seleciona aleatóriamente um item de cada elemento do array
+//lado direito da tabela
 function selecionaSabores() {
     return opcoes.map(function (a) {
         random = Math.floor(Math.random() * (a[1].length - 1 - 0) + 0);
@@ -94,12 +96,13 @@ function selecionaSabores() {
     })
 }
 
-//Enche a tabela com o Sabores escolhido
+//Popula a tabela 
 function populaTabela() {
     //esvazia a tabela
-    table.innerHTML = "";
-    const nomes = criaNomes();
+    table.innerHTML = ""
+    const nomes = () => opcoes.map((a) => a[0])
     const sabores = selecionaSabores();
+    //cria uma tabela do mesmo tamanho do array
     for (let i = 0; i < opcoes.length; i++) {
         let nomeNode = document.createTextNode(nomes[i])
         let saboresNode = document.createTextNode(sabores[i])
@@ -109,10 +112,13 @@ function populaTabela() {
         cell = row.insertCell()
         cell.appendChild(saboresNode)
     }
+    //cria a imagem correspondente ao recheio sorteado
     setImg();
 }
 
 function setImg() {
+    img.innerHTML = "";
+    //pega o primeiro elemento do lado direito da tabela
     let nomeRecheio = document.querySelector('table tr:nth-child(1) td:nth-child(2)');
     nomeRecheio = nomeRecheio.textContent
     function chooseName() {
@@ -161,11 +167,11 @@ function setImg() {
                 break;
         }
     }
-    img.innerHTML = "";
     let tagImage = document.createElement('img');
     tagImage.setAttribute('src', chooseName());
     img.appendChild(tagImage);
 }
+
 
 window.onload = function () { 
     populaTabela()
