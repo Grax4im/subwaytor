@@ -100,7 +100,7 @@ function selecionaSabores() {
 function populaTabela() {
     //esvazia a tabela
     table.innerHTML = ""
-    const nomes = () => opcoes.map((a) => a[0])
+    const nomes = criaNomes();
     const sabores = selecionaSabores();
     //cria uma tabela do mesmo tamanho do array
     for (let i = 0; i < opcoes.length; i++) {
