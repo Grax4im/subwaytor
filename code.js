@@ -100,27 +100,41 @@ function selecionaSabores() {
 function populaTabela() {
     //esvazia a tabela
     table.innerHTML = ""
-    const nomes = criaNomes();
-    const sabores = selecionaSabores();
-    //cria uma tabela do mesmo tamanho do array
+    
+    //pega os nomes fixos e Seleciona os sabores aleatórios
+    const nomes = criaNomes()
+    const sabores = selecionaSabores()
+    
+    //começa a iterar sobre todos os conjuntos (nome,sabor) um de cada vez
     for (let i = 0; i < opcoes.length; i++) {
+    	//cria um "elemento" com o nome e o sabor referentes ao numero da iteracao
         let nomeNode = document.createTextNode(nomes[i])
         let saboresNode = document.createTextNode(sabores[i])
+        
+        //cria uma linha na nossa tabela (API das tabelas \o/)
         let row = table.insertRow()
+        
+        //cria uma coluna e adiciona o nome (lado esquerdo)
         let cell = row.insertCell()
         cell.appendChild(nomeNode)
+        
+        //cria outra coluna e adiciona o sabor escolhido aleatório (lado direito)
         cell = row.insertCell()
         cell.appendChild(saboresNode)
-    }
+    } //acaba a iteração
     //cria a imagem correspondente ao recheio sorteado
     setImg();
 }
 
+// hoisting \õ/ 
 function setImg() {
-    img.innerHTML = "";
-    //pega o primeiro elemento do lado direito da tabela
-    let nomeRecheio = document.querySelector('table tr:nth-child(1) td:nth-child(2)');
+	//zera a imagem	
+    img.innerHTML = ""
+    //pega o primeiro elemento do lado direito da tabela (no caso, o nome do Recheio escolhi aleatório :) )
+    let nomeRecheio = document.querySelector('table tr:nth-child(1) td:nth-child(2)')
     nomeRecheio = nomeRecheio.textContent
+    
+ 	//escolhe a imagem de acordo com o nome do Recheio (suspeito que exista um jeito melhor de fazer isso...)
     function chooseName() {
         switch (nomeRecheio) {
             case 'Atum':
@@ -165,14 +179,18 @@ function setImg() {
             case 'Vegetariano':
                 return "sandubas/14.jpg"
                 break;
-        }
-    }
-    let tagImage = document.createElement('img');
-    tagImage.setAttribute('src', chooseName());
-    img.appendChild(tagImage);
+        } //fim do switch
+    } // fim da função chooseName
+    
+    //cria a tag html <img>
+    let tagImage = document.createElement('img')
+    //coloca o atributo src de acordo com o recheio escolhido
+    tagImage.setAttribute('src', chooseName())
+    //coloca o atributo src dentro da imagem :)
+    img.appendChild(tagImage)
 }
 
-
+//toda vez que recarregar a página chama a função pra popular a tabela
 window.onload = function () { 
     populaTabela()
 }
